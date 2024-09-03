@@ -10,4 +10,8 @@
     <InternalsVisibleTo Include="Reapit.Services.Demo.Core.Test" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Reapit.Services.Demo.Common\Reapit.Services.Demo.Common.csproj" />
+  </ItemGroup>
+
 </Project>
