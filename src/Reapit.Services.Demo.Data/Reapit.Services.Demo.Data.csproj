@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <InternalsVisibleTo Include="Reapit.Services.Demo.Data.Test" />
     <ProjectReference Include="..\Reapit.Services.Demo.Domain\Reapit.Services.Demo.Domain.csproj" />
@@ -24,9 +24,4 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Context\Migrations\" />
-  </ItemGroup>
-
 </Project>

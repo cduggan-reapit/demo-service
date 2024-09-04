@@ -1,4 +1,5 @@
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Reapit.Services.Demo.Data.Context;
 using Reapit.Services.Demo.Data.Repositories;
 using Reapit.Services.Demo.Data.Test.Helpers;
@@ -18,6 +19,7 @@ public class DummyRepositoryTests : DatabaseAwareTestBase
         await using var context = await GetContextAsync();
         var sut = CreateSut(context);
         var actual = await sut.GetAsync(default);
+        actual.Should().BeEmpty();
     }
 
     [Fact]
@@ -43,24 +45,59 @@ public class DummyRepositoryTests : DatabaseAwareTestBase
     }
     
     /*
-    public async Task<IEnumerable<Dummy>> GetAsync(CancellationToken cancellationToken)
-        => await _context.Dummies.AsNoTracking().ToListAsync(cancellationToken);
+     * GetByIdAsync
+     */
 
-    public async Task<Dummy?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => await _context.Dummies.FindAsync(id, cancellationToken);
-
-    public async Task CreateAsync(Dummy entity, CancellationToken cancellationToken)
-        => await _context.AddAsync(entity, cancellationToken);
-
-    public void UpdateAsync(Dummy entity, CancellationToken cancellationToken)
+    [Fact]
+    public async Task GetByIdAsync_ReturnsNull_WhenEntityNotFound()
     {
-        throw new NotImplementedException();
+        var id = Guid.NewGuid();
+        await using var context = await GetContextAsync();
+        var sut = CreateSut(context);
+        var actual = await sut.GetByIdAsync(id, default);
+        actual.Should().BeNull();
     }
 
-    public void DeleteAsync(Dummy entity, CancellationToken cancellationToken)
+    [Fact]
+    public async Task GetByIdAsync_ReturnsEntity_WhenEntityFound()
     {
-        throw new NotImplementedException();
-    }*/
+        var id = new Guid("00000000-0000-0000-0000-000000000003");
+        var seedData = Enumerable.Range(1, 5)
+            .Select(i => new Dummy
+            {
+                Id = new Guid($"00000000-0000-0000-0000-{i:D12}"),
+                Name = $"Demo Dummy {i:D3}",
+                DateCreated = DateTime.UnixEpoch.AddDays(i),
+                DateModified = DateTime.UnixEpoch.AddMonths(i)
+            })
+            .ToList();
+        
+        await using var context = await GetContextAsync();
+        await context.Dummies.AddRangeAsync(seedData);
+        await context.SaveChangesAsync();
+        
+        var sut = CreateSut(context);
+        var actual = await sut.GetByIdAsync(id, default);
+        actual.Should().NotBeNull();
+        actual?.Id.Should().Be(id);
+    }
+    
+    /*
+     * CreateAsync
+     */
+    
+    [Fact]
+    public async Task CreateAsync_AddsEntityToChangeTracking()
+    {
+        var dummy = new Dummy("test name");
+        
+        await using var context = await GetContextAsync();
+        var sut = CreateSut(context);
+        await sut.CreateAsync(dummy, default);
+
+        context.ChangeTracker.Entries().Should().HaveCount(1)
+            .And.AllSatisfy(entry => entry.State.Should().Be(EntityState.Added));
+    }
     
     /*
      * Private methods
