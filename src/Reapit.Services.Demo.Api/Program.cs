@@ -2,12 +2,16 @@ using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Reapit.Services.Demo.Api.Controllers.Dummies.Examples;
 using Reapit.Services.Demo.Core;
+using Reapit.Services.Demo.Data;
 using Swashbuckle.AspNetCore.Filters;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.AddCoreServices();
+builder.AddCoreServices()
+    .AddDataServices();
+
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddControllers();

@@ -9,6 +9,11 @@ dotnet ef migrations add <MIGRATION NAME> --verbose --project .\Reapit.Services.
 ```
 
 Apply migration:
-```sh
+Windows
+```cmd
 dotnet ef database update --verbose --project .\Reapit.Services.Demo.Data\ --startup-project .\Reapit.Services.Demo.Api\
+```
+Mac
+```sh
+dotnet ef database update --verbose --project Reapit.Services.Demo.Data/Reapit.Services.Demo.Data.csproj --startup-project Reapit.Services.Demo.Api/Reapit.Services.Demo.Api.csproj     
 ```

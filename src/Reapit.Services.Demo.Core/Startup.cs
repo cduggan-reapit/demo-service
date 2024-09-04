@@ -2,7 +2,6 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Reapit.Services.Demo.Data;
 
 namespace Reapit.Services.Demo.Core;
 
@@ -16,8 +15,6 @@ public static class Startup
             cfg.RegisterServicesFromAssemblyContaining<UseCases.Dummies.CreateDummy.CreateDummyCommandHandler>());
 
         builder.Services.AddValidatorsFromAssemblyContaining(typeof(UseCases.Dummies.CreateDummy.CreateDummyCommandValidator));
-
-        builder.AddDataServices();
         
         return builder;
     }
