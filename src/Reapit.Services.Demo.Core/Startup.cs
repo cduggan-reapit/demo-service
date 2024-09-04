@@ -1,10 +1,12 @@
-﻿using FluentValidation;
+﻿using System.Diagnostics.CodeAnalysis;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Reapit.Services.Demo.Data;
 
 namespace Reapit.Services.Demo.Core;
 
+[ExcludeFromCodeCoverage]
 public static class Startup
 {
     public static WebApplicationBuilder AddCoreServices(this WebApplicationBuilder builder)

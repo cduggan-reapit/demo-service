@@ -4,7 +4,7 @@ namespace Reapit.Services.Demo.Data.Services;
 
 public interface IUnitOfWork
 {
-    public DummyRepository Dummies { get; }
+    public IDummyRepository Dummies { get; }
 
     public Task SaveChangesAsync(CancellationToken cancellationToken);
 }

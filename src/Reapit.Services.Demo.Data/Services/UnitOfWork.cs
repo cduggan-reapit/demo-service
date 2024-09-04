@@ -7,7 +7,7 @@ public class UnitOfWork : IUnitOfWork
 {
     private readonly DemoDbContext _context;
 
-    private DummyRepository? _dummyRepository;
+    private IDummyRepository? _dummyRepository;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UnitOfWork"/> class.
@@ -16,7 +16,7 @@ public class UnitOfWork : IUnitOfWork
     public UnitOfWork(DemoDbContext context)
         => _context = context;
     
-    public DummyRepository Dummies 
+    public IDummyRepository Dummies 
         => _dummyRepository ??= new DummyRepository(_context);
 
     public async Task SaveChangesAsync(CancellationToken cancellationToken)
