@@ -2,8 +2,10 @@
 
 public class NotFoundException : Exception
 {
+    internal const string DefaultMessage = "Resource not found";
+    
     public NotFoundException()
-        : base("Resource not found")
+        : base(DefaultMessage)
     {
     }
 }
