@@ -2,7 +2,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Reapit.Services.Demo.Data.Context;
 
-namespace Reapit.Services.Demo.Data.Test.Context;
+namespace Reapit.Services.Demo.Data.UnitTests.Context;
 
 public class TestDbContextFactory : IDisposable, IAsyncDisposable
 {

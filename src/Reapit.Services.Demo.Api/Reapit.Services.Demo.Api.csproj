@@ -13,6 +13,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Reapit.Packages.ErrorHandling" Version="1.5.3" />
+    <PackageReference Include="Reapit.Packages.Scopes" Version="2.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <InternalsVisibleTo Include="Reapit.Services.Demo.Api.Test" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.2" />

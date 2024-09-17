@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Reapit.Services.Demo.Common.Temporal;
 
-namespace Reapit.Services.Demo.Common.Test.Temporal;
+namespace Reapit.Services.Demo.Common.UnitTests.Temporal;
 
 public class DateTimeOffsetProviderTests
 {

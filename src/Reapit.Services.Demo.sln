@@ -5,23 +5,23 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Api", "Reapit.Services.Demo.Api\Reapit.Services.Demo.Api.csproj", "{BB9A555C-33CB-4C7D-9405-0E0C80771C55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Api.Test", "Reapit.Services.Demo.Api.Test\Reapit.Services.Demo.Api.Test.csproj", "{676D3465-BA06-4D3E-AC6D-F504052D9C72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Api.UnitTests", "Reapit.Services.Demo.Api.UnitTests\Reapit.Services.Demo.Api.UnitTests.csproj", "{676D3465-BA06-4D3E-AC6D-F504052D9C72}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Core", "Reapit.Services.Demo.Core\Reapit.Services.Demo.Core.csproj", "{C2A9D00E-EC0D-4068-97B6-0FE19F643FE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Core.Test", "Reapit.Services.Demo.Core.Test\Reapit.Services.Demo.Core.Test.csproj", "{FABD33CC-92C0-4200-9326-417C194AB2C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Core.UnitTests", "Reapit.Services.Demo.Core.UnitTests\Reapit.Services.Demo.Core.UnitTests.csproj", "{FABD33CC-92C0-4200-9326-417C194AB2C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Domain", "Reapit.Services.Demo.Domain\Reapit.Services.Demo.Domain.csproj", "{3DDC79A9-9CA4-47A9-A51E-F7F437D1C9D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Domain.Test", "Reapit.Services.Demo.Domain.Test\Reapit.Services.Demo.Domain.Test.csproj", "{7DE3533B-BF4B-4811-A5CA-B793E12241AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Domain.UnitTests", "Reapit.Services.Demo.Domain.UnitTests\Reapit.Services.Demo.Domain.UnitTests.csproj", "{7DE3533B-BF4B-4811-A5CA-B793E12241AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Data", "Reapit.Services.Demo.Data\Reapit.Services.Demo.Data.csproj", "{C5253EF8-E2CE-4DF4-B411-4FB4D0F81C0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Data.Test", "Reapit.Services.Demo.Data.Test\Reapit.Services.Demo.Data.Test.csproj", "{D502EA6B-3457-4BD0-BA76-5E1D4252234F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Data.UnitTests", "Reapit.Services.Demo.Data.UnitTests\Reapit.Services.Demo.Data.UnitTests.csproj", "{D502EA6B-3457-4BD0-BA76-5E1D4252234F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Common", "Reapit.Services.Demo.Common\Reapit.Services.Demo.Common.csproj", "{07A9D7B1-F385-4052-B9B9-0BA247032C98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Common.Test", "Reapit.Services.Demo.Common.Test\Reapit.Services.Demo.Common.Test.csproj", "{988E9BB3-3A1D-4BFB-B99E-61086DF52379}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Common.UnitTests", "Reapit.Services.Demo.Common.UnitTests\Reapit.Services.Demo.Common.UnitTests.csproj", "{988E9BB3-3A1D-4BFB-B99E-61086DF52379}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{C406FBFB-432A-4B14-B00A-4B74D40668B2}"
 	ProjectSection(SolutionItems) = preProject
@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 		..\README.md = ..\README.md
 		..\build-notes.md = ..\build-notes.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reapit.Services.Demo.Api.IntegrationTests", "Reapit.Services.Demo.Api.IntegrationTests\Reapit.Services.Demo.Api.IntegrationTests.csproj", "{51FCB6CD-03C2-4B07-B9FA-442B2A1CE870}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,5 +81,9 @@ Global
 		{988E9BB3-3A1D-4BFB-B99E-61086DF52379}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{988E9BB3-3A1D-4BFB-B99E-61086DF52379}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{988E9BB3-3A1D-4BFB-B99E-61086DF52379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51FCB6CD-03C2-4B07-B9FA-442B2A1CE870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51FCB6CD-03C2-4B07-B9FA-442B2A1CE870}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51FCB6CD-03C2-4B07-B9FA-442B2A1CE870}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51FCB6CD-03C2-4B07-B9FA-442B2A1CE870}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

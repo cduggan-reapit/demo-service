@@ -1,14 +1,13 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Reapit.Services.Demo.Api.Controllers.Dummies.Models;
-using Reapit.Services.Demo.Domain.Entities;
 
 namespace Reapit.Services.Demo.Api.Controllers.Dummies.Examples;
 
-/// <summary>Static provider of an example <see cref="Dummy"/> object.</summary>
+/// <summary>Static provider of an example <see cref="ReadDummyModel"/> object.</summary>
 [ExcludeFromCodeCoverage]
 public static class ReadDummyModelExampleBase
 {
-    /// <summary>Creates an example <see cref="Dummy"/> object.</summary>
+    /// <summary>Creates an example <see cref="ReadDummyModel"/> object.</summary>
 
     public static ReadDummyModel GetExample()
         => new(

@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
+
+    <RootNamespace>Reapit.Services.Demo.Common.UnitTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Reapit.Services.Demo.Domain\Reapit.Services.Demo.Domain.csproj" />
+    <ProjectReference Include="..\Reapit.Services.Demo.Common\Reapit.Services.Demo.Common.csproj" />
   </ItemGroup>
 
 </Project>

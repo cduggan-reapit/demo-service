@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Reapit.Packages.ErrorHandling.Models;
+using Reapit.Packages.Scopes.Attributes;
 using Reapit.Services.Demo.Api.Controllers.Abstract;
 using Reapit.Services.Demo.Api.Controllers.Dummies.Examples;
 using Reapit.Services.Demo.Api.Controllers.Dummies.Models;
@@ -32,11 +34,12 @@ public class DummyController : ReapitApiController
     /// Fetch a collection of Dummies.
     /// </summary>
     [HttpGet]
+    [RequireAllScopes("dummy.read")]
     [ProducesResponseType(typeof(IEnumerable<ReadDummyModel>), 200)]
     [SwaggerResponseExample(200, typeof(ReadDummyModelCollectionExample))]
     public async Task<IActionResult> GetMany()
     {
-        var dummies = await _mediator.Send(new GetDummiesQuery(), default);
+        var dummies = await _mediator.Send(new GetDummiesQuery());
         return Ok(_mapper.Map<IEnumerable<ReadDummyModel>>(dummies));
     }
 
@@ -45,13 +48,14 @@ public class DummyController : ReapitApiController
     /// </summary>
     /// <param name="id">The unique identifier of the Dummy.</param>
     [HttpGet("{id}")]
+    [RequireAllScopes("dummy.read")]
     [ProducesResponseType(typeof(ReadDummyModel), 200)]
-    [ProducesResponseType(typeof(void), 404)]
+    [ProducesResponseType(typeof(ApiErrorModel), 404)]
     [SwaggerResponseExample(200, typeof(ReadDummyModelExample))]
     public async Task<IActionResult> GetOne(string id)
     {
         var query = new GetDummyByIdQuery(id);
-        var dummy = await _mediator.Send(query, default);
+        var dummy = await _mediator.Send(query);
         return Ok(_mapper.Map<ReadDummyModel>(dummy));
     }
 
@@ -60,12 +64,13 @@ public class DummyController : ReapitApiController
     /// </summary>
     /// <param name="model">Model describing the Dummy to create.</param>
     [HttpPost]
+    [RequireAnyScopes("dummy.write", "dummy.create")]
     [ProducesResponseType(typeof(ReadDummyModel), 201)]
-    [ProducesResponseType(404)]
+    [ProducesResponseType(typeof(ValidationErrorModel), 422)]
     public async Task<IActionResult> CreateOne([FromBody] WriteDummyModel model)
     {
         var command = _mapper.Map<CreateDummyCommand>(model);
-        var dummy = await _mediator.Send(command, default);
+        var dummy = await _mediator.Send(command);
         return Ok(_mapper.Map<ReadDummyModel>(dummy));
     }
     
@@ -75,9 +80,10 @@ public class DummyController : ReapitApiController
     /// <param name="id">The unique identifier of the Dummy.</param>
     /// <param name="model">Model describing the Dummy to update.</param>
     [HttpPut("{id}")]
+    [RequireAnyScopes("dummy.write", "dummy.modify")]
     [ProducesResponseType(204)]
-    [ProducesResponseType(404)]
-    [ProducesResponseType(422)]
+    [ProducesResponseType(typeof(ApiErrorModel), 404)]
+    [ProducesResponseType(typeof(ValidationErrorModel), 422)]
     public IActionResult UpdateOne(string id, [FromBody] WriteDummyModel model)
         => NotFound();
     
@@ -86,9 +92,10 @@ public class DummyController : ReapitApiController
     /// </summary>
     /// <param name="id">The unique identifier of the Dummy.</param>
     [HttpDelete("{id}")]
+    [RequireAnyScopes("dummy.write", "dummy.delete")]
     [ProducesResponseType(204)]
-    [ProducesResponseType(403)]
-    [ProducesResponseType(404)]
+    [ProducesResponseType(typeof(ApiErrorModel), 403)]
+    [ProducesResponseType(typeof(ApiErrorModel), 404)]
     public IActionResult DeleteOne(string id)
         => NotFound();
 }

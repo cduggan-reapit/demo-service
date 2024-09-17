@@ -1,7 +1,7 @@
 using Reapit.Services.Demo.Data.Context;
-using Reapit.Services.Demo.Data.Test.Context;
+using Reapit.Services.Demo.Data.UnitTests.Context;
 
-namespace Reapit.Services.Demo.Data.Test.Helpers;
+namespace Reapit.Services.Demo.Data.UnitTests.Helpers;
 
 public abstract class DatabaseAwareTestBase
 {

@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Reapit.Services.Demo.Common.Identifier;
 
-namespace Reapit.Services.Demo.Common.Test.Identifier;
+namespace Reapit.Services.Demo.Common.UnitTests.Identifier;
 
 public class GuidProviderTests
 {

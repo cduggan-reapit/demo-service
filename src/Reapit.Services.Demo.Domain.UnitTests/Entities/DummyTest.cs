@@ -2,7 +2,7 @@
 using Reapit.Services.Demo.Common.Temporal;
 using Reapit.Services.Demo.Domain.Entities;
 
-namespace Reapit.Services.Demo.Domain.Test.Entities;
+namespace Reapit.Services.Demo.Domain.UnitTests.Entities;
 
 public class DummyTest
 {

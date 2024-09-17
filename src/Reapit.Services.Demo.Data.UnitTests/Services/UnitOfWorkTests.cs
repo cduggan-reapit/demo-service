@@ -2,10 +2,10 @@ using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Reapit.Services.Demo.Data.Context;
 using Reapit.Services.Demo.Data.Services;
-using Reapit.Services.Demo.Data.Test.Helpers;
+using Reapit.Services.Demo.Data.UnitTests.Helpers;
 using Reapit.Services.Demo.Domain.Entities;
 
-namespace Reapit.Services.Demo.Data.Test.Services;
+namespace Reapit.Services.Demo.Data.UnitTests.Services;
 
 public class UnitOfWorkTests : DatabaseAwareTestBase
 {
