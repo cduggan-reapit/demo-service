@@ -26,6 +26,13 @@ public class DummyControllerTests : IClassFixture<TestApiFactory>
 
         var response = await client.GetAsync(url);
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
+
+        var payload = await response.Content.ReadAsStringAsync();
+        var actual = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(payload)
+            ?? throw new Exception($"Failed to deserialize response: {payload}");
+        
+        actual["statusCode"].GetInt32().Should().Be(403);
+        actual["dateTime"].GetDateTime().Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
     }
     
     [Fact]
@@ -116,6 +123,13 @@ public class DummyControllerTests : IClassFixture<TestApiFactory>
 
         var response = await client.PostAsync(url, new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json"));
         response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
+
+        var payload = await response.Content.ReadAsStringAsync();
+        var content = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(payload)
+            ?? throw new Exception($"Failed to deserialize response: {payload}");
+
+        content["statusCode"].GetInt32().Should().Be(422);
+        content["errors"].EnumerateArray().Should().HaveCount(1);
     }
     
     [Theory]
