@@ -1,5 +1,4 @@
 using System.Net;
-using FluentAssertions;
 
 namespace Reapit.Services.Demo.Api.IntegrationTests.Controllers;
 

@@ -3,7 +3,7 @@ using Microsoft.OpenApi.Models;
 using Reapit.Services.Demo.Api.Controllers.Dummies.Examples;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace Reapit.Services.Demo.Api.Controllers.Infrastructure;
+namespace Reapit.Services.Demo.Api.Infrastructure;
 
 /// <summary>Startup extension methods for Swagger documentation.</summary>
 public static class SwaggerConfiguration

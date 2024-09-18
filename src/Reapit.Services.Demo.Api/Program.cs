@@ -1,5 +1,5 @@
 using Reapit.Packages.ErrorHandling.Middleware;
-using Reapit.Services.Demo.Api.Controllers.Infrastructure;
+using Reapit.Services.Demo.Api.Infrastructure;
 using Reapit.Services.Demo.Core;
 using Reapit.Services.Demo.Data;
 

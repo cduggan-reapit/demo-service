@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Reapit.Packages.Scopes;
 
-namespace Reapit.Services.Demo.Api.Controllers.Infrastructure;
+namespace Reapit.Services.Demo.Api.Infrastructure;
 
 /// <summary>Startup extension methods to inject services required by the presentation layer.</summary>
 [ExcludeFromCodeCoverage]

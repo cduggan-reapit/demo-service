@@ -37,7 +37,7 @@ public class DummyController : ReapitApiController
     [RequireAllScopes("dummy.read")]
     [ProducesResponseType(typeof(IEnumerable<ReadDummyModel>), 200)]
     [SwaggerResponseExample(200, typeof(ReadDummyModelCollectionExample))]
-    public async Task<IActionResult> GetMany()
+    public async Task<IActionResult> GetDummies()
     {
         var dummies = await _mediator.Send(new GetDummiesQuery());
         return Ok(_mapper.Map<IEnumerable<ReadDummyModel>>(dummies));
@@ -52,7 +52,7 @@ public class DummyController : ReapitApiController
     [ProducesResponseType(typeof(ReadDummyModel), 200)]
     [ProducesResponseType(typeof(ApiErrorModel), 404)]
     [SwaggerResponseExample(200, typeof(ReadDummyModelExample))]
-    public async Task<IActionResult> GetOne(string id)
+    public async Task<IActionResult> GetDummyById(string id)
     {
         var query = new GetDummyByIdQuery(id);
         var dummy = await _mediator.Send(query);
@@ -67,11 +67,12 @@ public class DummyController : ReapitApiController
     [RequireAnyScopes("dummy.write", "dummy.create")]
     [ProducesResponseType(typeof(ReadDummyModel), 201)]
     [ProducesResponseType(typeof(ValidationErrorModel), 422)]
-    public async Task<IActionResult> CreateOne([FromBody] WriteDummyModel model)
+    public async Task<IActionResult> CreateDummy([FromBody] WriteDummyModel model)
     {
         var command = _mapper.Map<CreateDummyCommand>(model);
         var dummy = await _mediator.Send(command);
-        return Ok(_mapper.Map<ReadDummyModel>(dummy));
+        var readModel = _mapper.Map<ReadDummyModel>(dummy);
+        return CreatedAtAction(nameof(GetDummyById), new { id = readModel.Id },  readModel);
     }
     
     /// <summary>

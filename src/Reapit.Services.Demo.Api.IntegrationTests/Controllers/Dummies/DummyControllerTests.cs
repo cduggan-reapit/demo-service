@@ -1,7 +1,6 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using FluentAssertions;
 using Reapit.Services.Demo.Api.Controllers.Dummies.Models;
 using Reapit.Services.Demo.Data.Context;
 using Reapit.Services.Demo.Domain.Entities;
@@ -122,7 +121,7 @@ public class DummyControllerTests : IClassFixture<TestApiFactory>
     [Theory]
     [InlineData("dummy.create")]
     [InlineData("dummy.write")]
-    public async Task CreateDummy_ReturnsOk_WhenRequestValid_AndAnyRequiredScopedProvided(string scope)
+    public async Task CreateDummy_ReturnsCreated_WhenRequestValid_AndAnyRequiredScopedProvided(string scope)
     {
         const string name = "people's postcode lottery";
         const string url = "/api/dummy";
@@ -133,7 +132,7 @@ public class DummyControllerTests : IClassFixture<TestApiFactory>
         client.DefaultRequestHeaders.Add("demo-scopes", scope);
 
         var response = await client.PostAsync(url, new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json"));
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.StatusCode.Should().Be(HttpStatusCode.Created);
         
         var actual = JsonSerializer.Deserialize<ReadDummyModel>(await response.Content.ReadAsStringAsync());
         actual!.Name.Should().Be(name);
