@@ -37,6 +37,7 @@ public static class SwaggerConfiguration
     }
 
 
+    /// <summary>Adds swagger services to the request pipeline.</summary>
     public static WebApplication UseSwaggerServices(this WebApplication app)
     {
         app.UseSwagger();
