@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Reapit.Services.Demo.Api.Controllers.Dummies.Models;
+using Reapit.Services.Demo.Api.Controllers.Dummies.V1.Models;
 
-namespace Reapit.Services.Demo.Api.Controllers.Dummies.Examples;
+namespace Reapit.Services.Demo.Api.Controllers.Dummies.V1.Examples;
 
 /// <summary>Static provider of an example <see cref="ReadDummyModel"/> object.</summary>
 [ExcludeFromCodeCoverage]

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Reapit.Services.Demo.Api.Controllers.Dummies.Models;
+namespace Reapit.Services.Demo.Api.Controllers.Dummies.V1.Models;
 
 /// <summary>Response model used when fetching one or more Dummy's.</summary>
 /// <param name="Id">The unique identifier of the Dummy.</param>

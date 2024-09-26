@@ -15,7 +15,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
     <PackageReference Include="Reapit.Packages.ErrorHandling" Version="1.5.3" />
-    <PackageReference Include="Reapit.Packages.Scopes" Version="2.0.0" />
+    <PackageReference Include="Reapit.Platform.ApiVersioning" Version="1.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <InternalsVisibleTo Include="Reapit.Services.Demo.Api.Test" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.2" />
@@ -25,5 +25,14 @@
     <ProjectReference Include="..\Reapit.Services.Demo.Core\Reapit.Services.Demo.Core.csproj" />
     <ProjectReference Include="..\Reapit.Services.Demo.Domain\Reapit.Services.Demo.Domain.csproj" />
   </ItemGroup>
+
+  <!-- Copies XML Documentation for dependencies to build directory, allowing them to be used in swagger configuration -->
+  <Target Name="_ResolveCopyLocalNuGetPackageXmls" AfterTargets="ResolveReferences">
+    <ItemGroup>
+      <ReferenceCopyLocalPaths 
+              Include="@(ReferenceCopyLocalPaths->'%(RootDir)%(Directory)%(Filename).xml')" 
+              Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' != '' and Exists('%(RootDir)%(Directory)%(Filename).xml')" />
+    </ItemGroup>
+  </Target>
 
 </Project>

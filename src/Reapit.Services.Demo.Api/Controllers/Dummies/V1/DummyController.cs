@@ -2,16 +2,16 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Reapit.Packages.ErrorHandling.Models;
-using Reapit.Packages.Scopes.Attributes;
+using Reapit.Platform.ApiVersioning.Attributes;
 using Reapit.Services.Demo.Api.Controllers.Abstract;
-using Reapit.Services.Demo.Api.Controllers.Dummies.Examples;
-using Reapit.Services.Demo.Api.Controllers.Dummies.Models;
+using Reapit.Services.Demo.Api.Controllers.Dummies.V1.Examples;
+using Reapit.Services.Demo.Api.Controllers.Dummies.V1.Models;
 using Reapit.Services.Demo.Core.UseCases.Dummies.CreateDummy;
 using Reapit.Services.Demo.Core.UseCases.Dummies.GetDummies;
 using Reapit.Services.Demo.Core.UseCases.Dummies.GetDummyById;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace Reapit.Services.Demo.Api.Controllers.Dummies;
+namespace Reapit.Services.Demo.Api.Controllers.Dummies.V1;
 
 /// <summary>
 /// Endpoints for interacting with Dummies.
@@ -34,7 +34,7 @@ public class DummyController : ReapitApiController
     /// Fetch a collection of Dummies.
     /// </summary>
     [HttpGet]
-    [RequireAllScopes("dummy.read")]
+    [IntroducedInVersion(1,0)]
     [ProducesResponseType(typeof(IEnumerable<ReadDummyModel>), 200)]
     [SwaggerResponseExample(200, typeof(ReadDummyModelCollectionExample))]
     public async Task<IActionResult> GetDummies()
@@ -48,7 +48,7 @@ public class DummyController : ReapitApiController
     /// </summary>
     /// <param name="id">The unique identifier of the Dummy.</param>
     [HttpGet("{id}")]
-    [RequireAllScopes("dummy.read")]
+    [IntroducedInVersion(1,0)]
     [ProducesResponseType(typeof(ReadDummyModel), 200)]
     [ProducesResponseType(typeof(ApiErrorModel), 404)]
     [SwaggerResponseExample(200, typeof(ReadDummyModelExample))]
@@ -64,7 +64,7 @@ public class DummyController : ReapitApiController
     /// </summary>
     /// <param name="model">Model describing the Dummy to create.</param>
     [HttpPost]
-    [RequireAnyScopes("dummy.write", "dummy.create")]
+    [IntroducedInVersion(1,0)]
     [ProducesResponseType(typeof(ReadDummyModel), 201)]
     [ProducesResponseType(typeof(ValidationErrorModel), 422)]
     public async Task<IActionResult> CreateDummy([FromBody] WriteDummyModel model)
@@ -81,7 +81,7 @@ public class DummyController : ReapitApiController
     /// <param name="id">The unique identifier of the Dummy.</param>
     /// <param name="model">Model describing the Dummy to update.</param>
     [HttpPut("{id}")]
-    [RequireAnyScopes("dummy.write", "dummy.modify")]
+    [IntroducedInVersion(1,1)]
     [ProducesResponseType(204)]
     [ProducesResponseType(typeof(ApiErrorModel), 404)]
     [ProducesResponseType(typeof(ValidationErrorModel), 422)]
@@ -93,7 +93,7 @@ public class DummyController : ReapitApiController
     /// </summary>
     /// <param name="id">The unique identifier of the Dummy.</param>
     [HttpDelete("{id}")]
-    [RequireAnyScopes("dummy.write", "dummy.delete")]
+    [IntroducedInVersion(1,2)]
     [ProducesResponseType(204)]
     [ProducesResponseType(typeof(ApiErrorModel), 403)]
     [ProducesResponseType(typeof(ApiErrorModel), 404)]

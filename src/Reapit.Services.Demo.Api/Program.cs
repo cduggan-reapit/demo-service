@@ -1,4 +1,6 @@
 using Reapit.Packages.ErrorHandling.Middleware;
+using Reapit.Platform.ApiVersioning;
+using Reapit.Platform.ApiVersioning.Options;
 using Reapit.Services.Demo.Api.Infrastructure;
 using Reapit.Services.Demo.Core;
 using Reapit.Services.Demo.Data;
@@ -9,13 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.AddPresentationServices()
     .AddCoreServices()
-    .AddDataServices()
-    .AddSwaggerServices();
+    .AddDataServices();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-    app.UseSwaggerServices();
+app.UsePresentationMiddleware();
 
 app.UseExceptionHandling(app.Services.GetRequiredService<ILoggerFactory>());
 
@@ -23,6 +23,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseRangedApiVersioning();
 app.MapControllers();
 
 app.Run();

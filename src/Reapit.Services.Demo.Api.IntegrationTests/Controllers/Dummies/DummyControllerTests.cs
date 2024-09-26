@@ -1,7 +1,7 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using Reapit.Services.Demo.Api.Controllers.Dummies.Models;
+using Reapit.Services.Demo.Api.Controllers.Dummies.V1.Models;
 using Reapit.Services.Demo.Data.Context;
 using Reapit.Services.Demo.Domain.Entities;
 

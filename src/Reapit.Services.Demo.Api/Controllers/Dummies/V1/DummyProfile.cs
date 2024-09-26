@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Reapit.Services.Demo.Api.Controllers.Dummies.Models;
+using Reapit.Services.Demo.Api.Controllers.Dummies.V1.Models;
 using Reapit.Services.Demo.Core.UseCases.Dummies.CreateDummy;
 using Reapit.Services.Demo.Domain.Entities;
 
-namespace Reapit.Services.Demo.Api.Controllers.Dummies;
+namespace Reapit.Services.Demo.Api.Controllers.Dummies.V1;
 
 /// <summary>Automapper profile for Dummy models, requests, commands, and entities.</summary>
 public class DummyProfile : Profile
