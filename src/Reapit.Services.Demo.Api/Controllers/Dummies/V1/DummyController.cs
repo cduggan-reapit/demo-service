@@ -87,16 +87,16 @@ public class DummyController : ReapitApiController
     [ProducesResponseType(typeof(ValidationErrorModel), 422)]
     public IActionResult UpdateOne(string id, [FromBody] WriteDummyModel model)
         => NotFound();
-    
+
     /// <summary>
     /// Delete an existing Dummy. 
     /// </summary>
     /// <param name="id">The unique identifier of the Dummy.</param>
     [HttpDelete("{id}")]
-    [IntroducedInVersion(1,2)]
+    [IntroducedInVersion(1, 2)]
     [ProducesResponseType(204)]
     [ProducesResponseType(typeof(ApiErrorModel), 403)]
     [ProducesResponseType(typeof(ApiErrorModel), 404)]
     public IActionResult DeleteOne(string id)
-        => NotFound();
+        => throw new ArgumentNullException("parameter");
 }

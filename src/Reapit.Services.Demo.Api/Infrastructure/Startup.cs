@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Reapit.Platform.ApiVersioning;
 using Reapit.Platform.ApiVersioning.Options;
+using Reapit.Platform.ErrorHandling;
 using Reapit.Services.Demo.Api.Infrastructure.Swagger;
 
 namespace Reapit.Services.Demo.Api.Infrastructure;
@@ -27,8 +28,11 @@ public static class Startup
                 a.DocumentTitle = "Reapit Demo API";
             });
         
-        // Request routing (we'll come back to this for versioning)
+        // Register controllers
         builder.Services.AddControllers();
+
+        // Error handling (IProblemDetailsFactory)
+        builder.Services.AddErrorHandlingServices();
         
         return builder;
     }
@@ -36,6 +40,9 @@ public static class Startup
     /// <summary>Adds middleware required by the presentation layer to an application builder.</summary>
     public static IApplicationBuilder UsePresentationMiddleware(this IApplicationBuilder app)
     {
+        app.RegisterApplicationExceptions();
+        app.UseErrorHandlingServices();
+        
         app.UseSwaggerServices();
         return app;
     }

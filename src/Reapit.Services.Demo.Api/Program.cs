@@ -1,6 +1,4 @@
-using Reapit.Packages.ErrorHandling.Middleware;
 using Reapit.Platform.ApiVersioning;
-using Reapit.Platform.ApiVersioning.Options;
 using Reapit.Services.Demo.Api.Infrastructure;
 using Reapit.Services.Demo.Core;
 using Reapit.Services.Demo.Data;
@@ -17,7 +15,7 @@ var app = builder.Build();
 
 app.UsePresentationMiddleware();
 
-app.UseExceptionHandling(app.Services.GetRequiredService<ILoggerFactory>());
+// app.UseExceptionHandling(app.Services.GetRequiredService<ILoggerFactory>());
 
 app.UseHttpsRedirection();
 
