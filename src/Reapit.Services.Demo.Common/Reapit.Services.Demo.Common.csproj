@@ -8,7 +8,7 @@
   
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <InternalsVisibleTo Include="Reapit.Services.Demo.Common.Test" />
+    <InternalsVisibleTo Include="Reapit.Services.Demo.Common.UnitTests" />
   </ItemGroup>
 
 </Project>

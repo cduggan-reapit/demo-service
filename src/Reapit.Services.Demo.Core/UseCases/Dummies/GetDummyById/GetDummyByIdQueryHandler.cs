@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
-using Reapit.Packages.ErrorHandling.Exceptions;
+using Reapit.Services.Demo.Common.Exceptions;
 using Reapit.Services.Demo.Data.Services;
 using Reapit.Services.Demo.Domain.Entities;
 
@@ -32,6 +32,6 @@ public class GetDummyByIdQueryHandler : IRequestHandler<GetDummyByIdQuery, Dummy
 
         var id = Guid.Parse(request.Id);
         return await _unitOfWork.Dummies.GetByIdAsync(id, cancellationToken) 
-                     ?? throw new NotFoundException(typeof(Dummy), request.Id);
+                     ?? throw new NotFoundException(nameof(Dummy), request.Id);
     }
 }

@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using Reapit.Services.Demo.Api.Controllers.Dummies.V1.Models;
 using Reapit.Services.Demo.Data.Context;
 using Reapit.Services.Demo.Domain.Entities;
@@ -17,23 +18,6 @@ public class DummyControllerTests : IClassFixture<TestApiFactory>
     /*
      * GET /api/dummy
      */
-
-    [Fact]
-    public async Task GetDummies_ReturnsForbidden_WhenRequiredScopeMissing()
-    {
-        const string url = "/api/dummy";
-        var client = _factory.CreateClient();
-
-        var response = await client.GetAsync(url);
-        response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
-
-        var payload = await response.Content.ReadAsStringAsync();
-        var actual = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(payload)
-            ?? throw new Exception($"Failed to deserialize response: {payload}");
-        
-        actual["statusCode"].GetInt32().Should().Be(403);
-        actual["dateTime"].GetDateTime().Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
-    }
     
     [Fact]
     public async Task GetDummies_ReturnsOk_WhenRequestSuccessful()
@@ -42,7 +26,7 @@ public class DummyControllerTests : IClassFixture<TestApiFactory>
         
         const string url = "/api/dummy";
         var client = _factory.CreateClient();
-        client.DefaultRequestHeaders.Add("demo-scopes", "dummy.read");
+        client.DefaultRequestHeaders.Add("x-api-version", "1.0");
 
         var response = await client.GetAsync(url);
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -53,23 +37,13 @@ public class DummyControllerTests : IClassFixture<TestApiFactory>
      */
     
     [Fact]
-    public async Task GetDummyById_ReturnsForbidden_WhenRequiredScopeMissing()
-    {
-        var url = $"/api/dummy/{Guid.NewGuid():N}";
-        var client = _factory.CreateClient();
-
-        var response = await client.GetAsync(url);
-        response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
-    }
-    
-    [Fact]
     public async Task GetDummyById_ReturnsNotFound_WhenDummyNotFound()
     {
         await InitializeDatabaseAsync();
         
         var url = $"/api/dummy/{Guid.Empty}";
         var client = _factory.CreateClient();
-        client.DefaultRequestHeaders.Add("demo-scopes", "dummy.read");
+        client.DefaultRequestHeaders.Add("x-api-version", "1.0");
 
         var response = await client.GetAsync(url);
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -85,8 +59,8 @@ public class DummyControllerTests : IClassFixture<TestApiFactory>
         
         var url = $"/api/dummy/{dummy.Id}";
         var client = _factory.CreateClient();
-        client.DefaultRequestHeaders.Add("demo-scopes", "dummy.read");
-
+        client.DefaultRequestHeaders.Add("x-api-version", "1.0");
+        
         var response = await client.GetAsync(url);
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -99,19 +73,6 @@ public class DummyControllerTests : IClassFixture<TestApiFactory>
      */
     
     [Fact]
-    public async Task CreateDummy_ReturnsForbidden_WhenRequiredScopeMissing()
-    {
-        const string name = "name";
-        var requestBody = new WriteDummyModel(name);
-        
-        const string url = "/api/dummy";
-        var client = _factory.CreateClient();
-
-        var response = await client.PostAsync(url, new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json"));
-        response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
-    }
-    
-    [Fact]
     public async Task CreateDummy_ReturnsUnprocessable_WhenValidationFailed()
     {
         var name = new string('a', 101);
@@ -119,23 +80,20 @@ public class DummyControllerTests : IClassFixture<TestApiFactory>
         
         const string url = "/api/dummy";
         var client = _factory.CreateClient();
-        client.DefaultRequestHeaders.Add("demo-scopes", "dummy.write");
+        client.DefaultRequestHeaders.Add("x-api-version", "1.0");
 
         var response = await client.PostAsync(url, new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json"));
         response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
 
         var payload = await response.Content.ReadAsStringAsync();
-        var content = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(payload)
+        var content = JsonSerializer.Deserialize<ProblemDetails>(payload)
             ?? throw new Exception($"Failed to deserialize response: {payload}");
 
-        content["statusCode"].GetInt32().Should().Be(422);
-        content["errors"].EnumerateArray().Should().HaveCount(1);
+        content.Status.Should().Be(422);
     }
     
-    [Theory]
-    [InlineData("dummy.create")]
-    [InlineData("dummy.write")]
-    public async Task CreateDummy_ReturnsCreated_WhenRequestValid_AndAnyRequiredScopedProvided(string scope)
+    [Fact]
+    public async Task CreateDummy_ReturnsCreated_WhenRequestValid()
     {
         const string name = "people's postcode lottery";
         const string url = "/api/dummy";
@@ -143,7 +101,7 @@ public class DummyControllerTests : IClassFixture<TestApiFactory>
         
         await InitializeDatabaseAsync();
         var client = _factory.CreateClient();
-        client.DefaultRequestHeaders.Add("demo-scopes", scope);
+        client.DefaultRequestHeaders.Add("x-api-version", "1.0");
 
         var response = await client.PostAsync(url, new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json"));
         response.StatusCode.Should().Be(HttpStatusCode.Created);

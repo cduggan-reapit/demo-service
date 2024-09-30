@@ -2,6 +2,9 @@ using System.Data.Common;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Reapit.Platform.ApiVersioning;
+using Reapit.Platform.ApiVersioning.Models;
+using Reapit.Platform.ErrorHandling;
 using Reapit.Services.Demo.Data.Context;
 
 namespace Reapit.Services.Demo.Api.IntegrationTests;

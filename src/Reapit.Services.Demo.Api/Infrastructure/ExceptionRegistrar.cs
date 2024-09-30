@@ -1,6 +1,6 @@
 using FluentValidation;
-using Microsoft.AspNetCore.Mvc;
 using Reapit.Platform.ErrorHandling.Services;
+using Reapit.Services.Demo.Api.Extensions;
 using Reapit.Services.Demo.Common.Exceptions;
 
 namespace Reapit.Services.Demo.Api.Infrastructure;
@@ -20,33 +20,11 @@ public static class ExceptionRegistrar
         if (factory is null)
             return app;
         
-        factory.RegisterFactoryMethod<ValidationException>(HandleValidationException);
+        factory.RegisterFactoryMethod<ValidationException>(exception => exception.GetValidationExceptionProblemDetails());
         factory.RegisterFactoryMethod<NotFoundException>(NotFoundException.GetProblemDetails);
 
         return app;
     }
     
-    // I imagine this kind of extension method would _actually_ be part of whichever service/s we use to provide validation features (e.g. Reapit.Platform.Validation)
-    private static ProblemDetails HandleValidationException(Exception exception)
-    {
-        if (exception is not ValidationException validationException)
-            throw new Exception($"Cannot create ValidationException problem description from exception of type {exception.GetType().Name}.");
-            
-        return new ProblemDetails
-        {
-            Title = "Validation Failed",
-            Type = "https://www.reapit.com/errors/validation",
-            Detail = "One or more validation errors occurred.",
-            Status = 422,
-            Extensions =
-            {
-                {
-                    "Errors", validationException.Errors.GroupBy(e => e.PropertyName)
-                        .ToDictionary(
-                            keySelector: group => group.Key,
-                            elementSelector: group => group.Select(item => item.ErrorMessage))
-                }
-            }
-        };
-    }
+    
 }

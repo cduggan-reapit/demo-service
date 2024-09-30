@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Reapit.Packages.ErrorHandling.Models;
 using Reapit.Platform.ApiVersioning.Attributes;
 using Reapit.Services.Demo.Api.Controllers.Abstract;
 using Reapit.Services.Demo.Api.Controllers.Dummies.V1.Examples;
@@ -50,7 +49,7 @@ public class DummyController : ReapitApiController
     [HttpGet("{id}")]
     [IntroducedInVersion(1,0)]
     [ProducesResponseType(typeof(ReadDummyModel), 200)]
-    [ProducesResponseType(typeof(ApiErrorModel), 404)]
+    [ProducesResponseType(typeof(ProblemDetails), 404)]
     [SwaggerResponseExample(200, typeof(ReadDummyModelExample))]
     public async Task<IActionResult> GetDummyById(string id)
     {
@@ -66,7 +65,7 @@ public class DummyController : ReapitApiController
     [HttpPost]
     [IntroducedInVersion(1,0)]
     [ProducesResponseType(typeof(ReadDummyModel), 201)]
-    [ProducesResponseType(typeof(ValidationErrorModel), 422)]
+    [ProducesResponseType(typeof(ProblemDetails), 422)]
     public async Task<IActionResult> CreateDummy([FromBody] WriteDummyModel model)
     {
         var command = _mapper.Map<CreateDummyCommand>(model);
@@ -83,8 +82,8 @@ public class DummyController : ReapitApiController
     [HttpPut("{id}")]
     [IntroducedInVersion(1,1)]
     [ProducesResponseType(204)]
-    [ProducesResponseType(typeof(ApiErrorModel), 404)]
-    [ProducesResponseType(typeof(ValidationErrorModel), 422)]
+    [ProducesResponseType(typeof(ProblemDetails), 404)]
+    [ProducesResponseType(typeof(ProblemDetails), 422)]
     public IActionResult UpdateOne(string id, [FromBody] WriteDummyModel model)
         => NotFound();
 
@@ -95,8 +94,8 @@ public class DummyController : ReapitApiController
     [HttpDelete("{id}")]
     [IntroducedInVersion(1, 2)]
     [ProducesResponseType(204)]
-    [ProducesResponseType(typeof(ApiErrorModel), 403)]
-    [ProducesResponseType(typeof(ApiErrorModel), 404)]
+    [ProducesResponseType(typeof(ProblemDetails), 403)]
+    [ProducesResponseType(typeof(ProblemDetails), 404)]
     public IActionResult DeleteOne(string id)
         => throw new ArgumentNullException("parameter");
 }
